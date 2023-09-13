@@ -52,13 +52,10 @@ inverterLG([X|R1], L2) :- inverterLG(R1,L), adicionarFinal(X,L,L2).
 parear(E, [], []).
 parear(E, [X|R], [[E,X]|L]) :-  parear(E,R,L).
 
-% q9 - pares ERRADA
+% q9 - pares 
 
 pares([], []).
-pares([X|R], L) :- pares1(X,R,R2), pares(R,R2).
-
-pares1(_, [], []).
-pares1(X, [Y|R], [[X,Y]|R2]) :- pares1(X,R,R2).
+pares([X|R1], L) :- parear(X, R1, LR), pares(R1, L2), concatenar(LR, L2, L). 
 
 % q11 - permutar
 
@@ -78,11 +75,11 @@ subsequencia([],_).
 subsequencia([X|R1],[Y|R2]) :- X \== Y, subsequencia([X|R1],R2).
 subsequencia([X|R1], [Y|R2]) :- X == Y, prefixo(R1,R2),!.
 
-% q15 - mescle ERRADA
+% q15 - mescle 
 
 mescle([],X,X).
 mescle(X,[],X).
-mescle([X|R1],[Y|R2], [Y,X|R3]) :- X >= Y, mescle(R1,R2,R3).
-mescle([X|R1],[Y|R2], [X,Y|R3]) :- X < Y, mescle(R1,R2,R3).
+mescle([X|R1],[Y|R2], [Y|R3]) :- X >= Y, mescle([X|R1],R2,R3).
+mescle([X|R1],[Y|R2], [X|R3]) :- X < Y, mescle(R1,[Y|R2],R3).
 
 % q16 - mergeSort
