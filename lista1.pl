@@ -79,7 +79,16 @@ subsequencia([X|R1], [Y|R2]) :- X == Y, prefixo(R1,R2),!.
 
 mescle([],X,X).
 mescle(X,[],X).
-mescle([X|R1],[Y|R2], [Y|R3]) :- X >= Y, mescle([X|R1],R2,R3).
-mescle([X|R1],[Y|R2], [X|R3]) :- X < Y, mescle(R1,[Y|R2],R3).
+mescle([X|R1],[Y|R2], [Y|R3]) :- X >= Y, mescle([X|R1],R2,R3), !.
+mescle([X|R1],[Y|R2], [X|R3]) :- mescle(R1,[Y|R2],R3).
 
 % q16 - mergeSort
+
+mergeSort([], []).
+mergeSort([X], [X]).
+mergeSort(L, LO) :- separa(L,E,D), mergeSort(E, EO), mergeSort(D, DO), mescle(EO,DO,LO).
+
+separa([], [], []).
+separa([X], [X], []).
+separa([X,Y|R], [X|R1], [Y|R2]) :- separa(R, R1, R2).
+
