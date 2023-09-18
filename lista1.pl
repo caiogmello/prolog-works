@@ -105,6 +105,18 @@ mescleV2(L1, [], CC, L1).
 mescleV2([X|R1], [Y|R2], CC, [X|R]) :- call(CC,X,Y), mescleV2(R1, [Y|R2], CC, R), !.
 mescleV2([X|R1], [Y|R2], CC, [Y|R]) :- mescleV2([X|R1], R2, CC, R).
 
+% V3
+
+
+mescle3([],L2,_,_,L2) :- !.
+mescle3(L1,[],_,_,L1) :- !.
+mescle3([E1|R1], [E2|R2], FC, CC, [E1|W]) :-
+                                         call(CC,E1,EC1),
+                                         call(CC,E2,EC2),
+                                         call(FC,EC1,EC2),
+                                         mescle3(R1, [E2|R2], FC, CC, W),!.
+mescle3([E1|R1], [E2|R2], FC , CC, [E2|W]) :- mescle3([E1|R1], R2, FC, CC, W).
+
 % aplanar
 
 aplanar([], []).
