@@ -92,3 +92,21 @@ separa([], [], []).
 separa([X], [X], []).
 separa([X,Y|R], [X|R1], [Y|R2]) :- separa(R, R1, R2).
 
+% q17 - mergeSort V1, V2 e V3
+
+% V1
+
+mescleV1(L1, L2, L) :- mescle(L1,L2,L).
+
+% V2
+
+mescleV2([], L2, CC, L2).
+mescleV2(L1, [], CC, L1).
+mescleV2([X|R1], [Y|R2], CC, [X|R]) :- call(CC,X,Y), mescleV2(R1, [Y|R2], CC, R), !.
+mescleV2([X|R1], [Y|R2], CC, [Y|R]) :- mescleV2([X|R1], R2, CC, R).
+
+% aplanar
+
+aplanar([], []).
+aplanar([X|R], L) :- is_list(X), aplanar(X, RX), aplanar(R, RL), concatenar(RX, RL, L), !.
+aplanar([X|R], [X|RL]) :- aplanar(R, RL).
